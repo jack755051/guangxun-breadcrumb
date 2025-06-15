@@ -7,6 +7,9 @@
     "@angular/router": "^19.2.0",
     "@ngx-translate/core": "^14.0.0"
   },
+  "scripts": {
+    "build": "ng build guangxun-breadcrumb"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   },
