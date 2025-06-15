@@ -1,4 +1,4 @@
-name: Build and Publish to npm
+name: Build & Publish
 
 on:
   push:
@@ -8,27 +8,19 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: 'https://registry.npmjs.org/'
 
-      - name: Configure git to use HTTPS instead of SSH
-        run: 'git config --global url."https://github.com/".insteadOf git@github.com:'
+      - run: npm ci         # 安裝相依
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build library
-        run: npx ng-packagr -p ng-package.json
+      - run: npx ng-packagr -p ng-package.json   # build
 
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish ./dist --access public
+        run: npm publish ./dist/guangxun-breadcrumb --access public
