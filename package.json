@@ -1,6 +1,9 @@
 {
   "name": "@jack755051/guangxun-breadcrumb",
-  "version": "1.0.10",
+  "version": "1.0.11",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
