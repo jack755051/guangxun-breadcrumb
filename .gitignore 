@@ -1,0 +1,16 @@
+# 編譯出來的套件內容
+/dist
+/node_modules
+.DS_Store
+
+# IDE 設定檔
+.idea/
+*.iml
+.vscode/
+
+# 測試輸出
+/coverage
+
+# 安全性或環境設定
+.env
+.npmrc
