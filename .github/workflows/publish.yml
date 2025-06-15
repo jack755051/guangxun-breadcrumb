@@ -22,11 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
       - name: Build package
-        run: npm run build
+        run: npx ng-packagr -p projects/guangxun-breadcrumb/ng-package.json
 
       - name: Publish to npm
         run: npm publish dist/guangxun-breadcrumb --access public
