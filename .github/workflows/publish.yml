@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Set npm git protocol override
+        run: npm config set git+ssh://git@github.com/:git+https://github.com/
+
       - name: Build package
         run: npx ng-packagr -p ng-package.json
 
