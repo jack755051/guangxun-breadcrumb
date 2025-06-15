@@ -1,0 +1,21 @@
+{
+  "name": "guangxun-breadcrumb",
+  "version": "1.0.3",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@ngx-translate/core": "^14.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "description": "Guangxun breadcrumb component for Angular",
+  "author": "Charlie Tai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jack755051/guangxun-breadcrumb.git"
+  },
+  "keywords": ["angular", "breadcrumb", "guangxun", "component"],
+  "sideEffects": false
+}
