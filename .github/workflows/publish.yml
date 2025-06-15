@@ -1,32 +1,51 @@
-name: Build & Publish
+name: Build and Publish to npm
 
 on:
   push:
     tags:
-      - 'v*.*.*'          # 只要推含 vX.Y.Z 標籤就觸發
+      - 'v*.*.*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 取回程式碼
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # 2. Node + npm registry 登入
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           registry-url: 'https://registry.npmjs.org/'
-          cache: npm
 
-      # 3. 安裝相依（library 沒 lockfile → 用 install）
-      - run: npm install --no-audit --no-fund
+      - name: Configure git to use HTTPS instead of SSH
+        run: 'git config --global url."https://github.com/".insteadOf git@github.com:'
 
-      # 4. 打包 – 輸出到 dist/guangxun-breadcrumb
-      - run: npx ng-packagr -p ng-package.json
+      - name: Install dependencies
+        run: npm install
 
-      # 5. 發佈到 npm
-      - run: npm publish ./dist/guangxun-breadcrumb --access public
+      - name: Build library
+        run: npx ng-packagr -p ng-package.json
+
+      - name: Debug - List directory structure
+        run: |
+          echo "Root directory:"
+          ls -la
+          echo "Dist directory:"
+          ls -la dist/ || echo "dist directory not found"
+          echo "Looking for package.json files:"
+          find . -name "package.json" -type f
+
+      - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # 找到包含 package.json 的目錄
+          PACKAGE_DIR=$(find ./dist -name "package.json" -exec dirname {} \; | head -1)
+          if [ -z "$PACKAGE_DIR" ]; then
+            echo "Error: Could not find package.json in dist directory"
+            exit 1
+          fi
+          echo "Publishing from: $PACKAGE_DIR"
+          npm publish $PACKAGE_DIR --access public
