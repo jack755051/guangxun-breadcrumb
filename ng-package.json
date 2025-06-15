@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/guangxun-breadcrumb",
+  "dest": "dist/guangxun-breadcrumb",
   "lib": {
     "entryFile": "src/public-api.ts"
   }
